@@ -22,51 +22,79 @@ def init_schema():
 
 # Function to validate SVG
 def validate_svg(svg_content):
+    global relaxng
+
     try:
+        # Parse the SVG content directly from string
         doc = etree.fromstring(svg_content.encode('utf-8') if isinstance(svg_content, str) else svg_content)
+
+        # Validate against the schema
         is_valid = relaxng.validate(doc)
 
         if is_valid:
             return True, "SVG is valid!"
         else:
-            error_message = relaxng.error_log.last_error
+            # Get validation errors
+            error_message = "\n".join([str(error) for error in relaxng.error_log.filter_from_errors()])
             return False, f"Validation failed: {error_message}"
     except Exception as e:
         return False, f"Error: {str(e)}"
 
 
+# Function to handle file validation
 def validate_file(event):
     result_div = document.getElementById("result")
     result_div.innerHTML = "Processing..."
     result_div.className = "result"
 
-    file = document.getElementById("svg-file").files.item(0)
-    if not file:
+    file_input = document.getElementById("svg-file")
+    if file_input.files.length == 0:
         result_div.innerHTML = "Please select a file first."
         result_div.className = "result error"
         return
 
+    file = file_input.files.item(0)
     reader = FileReader.new()
-    reader.onload = create_proxy(lambda e: handle_validation_result(validate_svg(e.target.result)))
+
+    def on_load(event):
+        content = event.target.result
+        success, message = validate_svg(content)
+
+        if success:
+            result_div.innerHTML = message
+            result_div.className = "result success"
+        else:
+            result_div.innerHTML = message
+            result_div.className = "result error"
+
+    reader.onload = create_proxy(on_load)
     reader.readAsText(file)
 
 
+# Function to handle content validation
 def validate_content(event):
+    result_div = document.getElementById("result")
+    result_div.innerHTML = "Processing..."
+    result_div.className = "result"
+
     content = document.getElementById("svg-content").value
     if not content.strip():
-        handle_validation_result((False, "Please enter SVG content."))
+        result_div.innerHTML = "Please enter SVG content."
+        result_div.className = "result error"
         return
-    handle_validation_result(validate_svg(content))
+
+    success, message = validate_svg(content)
+
+    if success:
+        result_div.innerHTML = message
+        result_div.className = "result success"
+    else:
+        result_div.innerHTML = message
+        result_div.className = "result error"
 
 
-def handle_validation_result(result):
-    success, message = result
-    result_div = document.getElementById("result")
-    result_div.innerHTML = message
-    result_div.className = "result success" if success else "result error"
-
-
-# Set up event handlers
+# Initialize and set up event handlers
 if init_schema():
     document.getElementById("validate-file-btn").addEventListener("click", create_proxy(validate_file))
     document.getElementById("validate-content-btn").addEventListener("click", create_proxy(validate_content))
+    print("SVG Validator initialized. Upload a file or paste SVG content to validate.")
