@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>BIMI SVG Validator</title>
+    <title>BIMI SVG Validator Tool | Validate SVG Files for BIMI Compliance</title>
 
-    <!-- Recommended meta tags -->
+    <!-- Meta tags for SEO -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online BIMI SVG validator tool. Easily check if your SVG logos comply with Brand Indicators for Message Identification (BIMI) standards.">
+    <meta name="keywords" content="BIMI validator, SVG validator, BIMI compliance, BIMI logo checker, SVG BIMI standards">
+    <meta name="author" content="Your Name or Company">
+
+    <!-- Open Graph Meta Tags for social sharing -->
+    <meta property="og:title" content="BIMI SVG Validator Tool">
+    <meta property="og:description" content="Free online tool to validate SVG files for BIMI compliance">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fluder-paradyne.github.io/bimi-svg-validator/">
+
+
+
+    <!-- Canonical URL to prevent duplicate content issues -->
+    <link rel="canonical" href="https://fluder-paradyne.github.io/bimi-svg-validator/">
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 
     <!-- PyScript CSS -->
     <link rel="stylesheet" href="https://pyscript.net/releases/2025.2.1/core.css">
+
     <!-- Custom CSS -->
     <style>
         body {
@@ -16,21 +34,29 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+            line-height: 1.6;
         }
         h1 {
             color: #333;
+            margin-bottom: 20px;
+        }
+        h2, h3 {
+            color: #444;
         }
         .container {
             background-color: #f5f5f5;
             padding: 20px;
             border-radius: 5px;
             margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         textarea {
             width: 100%;
             height: 200px;
             margin-bottom: 10px;
             padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
         .input-group {
             margin-bottom: 20px;
@@ -55,32 +81,86 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
         }
         button:hover {
             background-color: #45a049;
+        }
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .instructions {
+            margin-bottom: 20px;
         }
     </style>
 
     <!-- This script tag bootstraps PyScript -->
     <script type="module" src="https://pyscript.net/releases/2025.2.1/core.js"></script>
+
+    <!-- Structured data for rich search results -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "BIMI SVG Validator Tool",
+      "description": "Free online tool to validate SVG files for BIMI compliance",
+      "operatingSystem": "Any",
+      "applicationCategory": "UtilityApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
 </head>
 <body>
-    <h1>SVG Validator</h1>
-    <div class="container">
-        <div class="input-group">
-            <h3>Upload SVG File</h3>
-            <input type="file" id="svg-file" accept=".svg">
-            <button id="validate-file-btn">Validate File</button>
+    <header>
+        <h1>BIMI SVG Validator Tool</h1>
+        <p class="instructions">Check if your SVG logo meets the Brand Indicators for Message Identification (BIMI) requirements with this free validator tool.</p>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="input-group">
+                <h2>Upload SVG File for BIMI Validation</h2>
+                <p>Select your SVG file to check if it's BIMI-compliant:</p>
+                <input type="file" id="svg-file" accept=".svg" aria-label="Upload SVG file">
+                <button id="validate-file-btn">Validate SVG File</button>
+            </div>
+
+            <div class="input-group">
+                <h2>Or Paste SVG Content</h2>
+                <p>Copy and paste your SVG code below:</p>
+                <textarea id="svg-content" placeholder="Paste your SVG content here..." aria-label="SVG content input"></textarea>
+                <button id="validate-content-btn">Validate SVG Content</button>
+            </div>
+
+            <div id="result" class="result" aria-live="polite"></div>
         </div>
 
-        <div class="input-group">
-            <h3>Or Paste SVG Content</h3>
-            <textarea id="svg-content" placeholder="Paste your SVG content here..."></textarea>
-            <button id="validate-content-btn">Validate Content</button>
+        <div class="container">
+            <h2>About BIMI SVG Requirements</h2>
+            <p>BIMI (Brand Indicators for Message Identification) requires SVG logos to follow specific standards:</p>
+            <ul>
+                <li>Must be a valid SVG Tiny 1.2 format</li>
+                <li>Must not contain external references</li>
+                <li>Cannot include JavaScript or animation</li>
+                <li>Must be properly sized with viewBox attribute</li>
+                <li>Should have a transparent background</li>
+            </ul>
+            <p>This validator helps ensure your logo meets these requirements for successful BIMI implementation.</p>
         </div>
+    </main>
 
-        <div id="result" class="result"></div>
-    </div>
+    <footer>
+        <p>&copy; 2023 BIMI SVG Validator Tool. All rights reserved.</p>
+        <p>This tool is provided for free to help email marketers implement BIMI effectively.</p>
+    </footer>
 
     <script type="py" src="./main.py" config="./pyscript.toml" terminal></script>
 </body>
