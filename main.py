@@ -1,4 +1,5 @@
 import os
+from lxml import etree
 import tempfile
 import subprocess
 from js import document, FileReader, console
@@ -8,21 +9,26 @@ from pyodide.ffi import create_proxy
 # Function to validate SVG with pyjing
 def validate_svg(svg_path):
     try:
-        # Assuming validate.rnc is in the same directory
-        # Note: pyjing needs to be available in the Python environment
-        result = subprocess.run(
-            ["pyjing", "-c", "validate.rnc", svg_path],
-            capture_output=True,
-            text=True
-        )
+        # Load the RNG schema
+        with open("validate.rng", "r") as f:
+            relaxng_doc = etree.parse(f)
+            relaxng = etree.RelaxNG(relaxng_doc)
 
-        if result.returncode == 0:
+        # Parse the SVG file
+        doc = etree.parse(svg_path)
+
+        # Validate against the schema
+        is_valid = relaxng.validate(doc)
+
+        if is_valid:
             return True, "SVG is valid!"
         else:
-            return False, f"Validation failed: {result.stderr}"
+            # Get validation errors
+            errors = relaxng.error_log.filter_from_errors()
+            error_message = "\n".join([str(error) for error in errors])
+            return False, f"Validation failed: {error_message}"
     except Exception as e:
         return False, f"Error: {str(e)}"
-
 
 # Function to handle file validation
 def validate_file(event):
