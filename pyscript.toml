@@ -10,8 +10,7 @@ packages = ["lxml"]
 # Fetch arbitrary content from URLs onto the virtual filesystem, just map a valid
 # URL to a destination in the filesystem path
 [files]
-"/validate.rng" = "./validate.rng"
-"/bimi-svg-validator/validate.rng" = "./prod.validate.rng"
+"/bimi-svg-validator/validate.rng" = "./validate.rng"
 
 # Import JavaScript modules in your project (load them in the main thread of the browser)
 # [js_modules.main]
