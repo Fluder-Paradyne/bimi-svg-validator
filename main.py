@@ -1,6 +1,4 @@
 from lxml import etree
-import tempfile
-import os
 from js import document, FileReader
 from pyodide.ffi import create_proxy
 
