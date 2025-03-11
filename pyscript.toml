@@ -1,4 +1,4 @@
-name = "Morning Dust"
+name = "BIMI SVG Validator"
 
 # Install packages to be used in this project
 packages = ["lxml"]
