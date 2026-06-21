@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     version="1.2"
+     baseProfile="tiny-ps"
+     viewBox="0 0 100 100">
+  <title>Example BIMI Logo</title>
+  <!-- Simple geometric mark: compliant Tiny-PS / BIMI subset -->
+  <circle cx="50" cy="50" r="40" fill="#0066cc"/>
+  <rect x="30" y="30" width="40" height="40" fill="#ffffff"/>
+</svg>

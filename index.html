@@ -17,16 +17,11 @@
     <meta property="og:url" content="https://fluder-paradyne.github.io/bimi-svg-validator/">
     <meta name="google-site-verification" content="GlN_ZaD9FBEe3GEoA9fUBA8Tzr9S8ErYSyK5rsvKIJI" />
 
-
-
     <!-- Canonical URL to prevent duplicate content issues -->
     <link rel="canonical" href="https://fluder-paradyne.github.io/bimi-svg-validator/">
 
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-
-    <!-- PyScript CSS -->
-    <link rel="stylesheet" href="https://pyscript.net/releases/2025.2.1/core.css">
 
     <!-- Custom CSS -->
     <style>
@@ -58,6 +53,7 @@
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
+            box-sizing: border-box;
         }
         .input-group {
             margin-bottom: 20px;
@@ -66,6 +62,8 @@
             margin-top: 20px;
             padding: 10px;
             border-radius: 5px;
+            white-space: pre-wrap;
+            word-break: break-word;
         }
         .success {
             background-color: #dff0d8;
@@ -85,8 +83,12 @@
             font-weight: bold;
             transition: background-color 0.3s;
         }
-        button:hover {
+        button:hover:not(:disabled) {
             background-color: #45a049;
+        }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
         footer {
             margin-top: 30px;
@@ -98,9 +100,6 @@
             margin-bottom: 20px;
         }
     </style>
-
-    <!-- This script tag bootstraps PyScript -->
-    <script type="module" src="https://pyscript.net/releases/2025.2.1/core.js"></script>
 
     <!-- Structured data for rich search results -->
     <script type="application/ld+json">
@@ -130,15 +129,17 @@
             <div class="input-group">
                 <h2>Upload SVG File for BIMI Validation</h2>
                 <p>Select your SVG file to check if it's BIMI-compliant:</p>
-                <input type="file" id="svg-file" accept=".svg" aria-label="Upload SVG file">
-                <button id="validate-file-btn">Validate SVG File</button>
+                <label for="svg-file">Upload SVG file</label>
+                <input type="file" id="svg-file" accept=".svg,image/svg+xml">
+                <button id="validate-file-btn" type="button">Validate SVG File</button>
             </div>
 
             <div class="input-group">
                 <h2>Or Paste SVG Content</h2>
                 <p>Copy and paste your SVG code below:</p>
-                <textarea id="svg-content" placeholder="Paste your SVG content here..." aria-label="SVG content input"></textarea>
-                <button id="validate-content-btn">Validate SVG Content</button>
+                <label for="svg-content">SVG content</label>
+                <textarea id="svg-content" placeholder="Paste your SVG content here..."></textarea>
+                <button id="validate-content-btn" type="button">Validate SVG Content</button>
             </div>
 
             <div id="result" class="result" aria-live="polite"></div>
@@ -155,7 +156,7 @@
                 <li>Should have a transparent background</li>
             </ul>
             <p>This validator helps ensure your logo meets these requirements for successful BIMI implementation.</p>
-            <p>Complete standard details can be found in the <a href="https://datatracker.ietf.org/doc/id/draft-svg-tiny-ps-abrotman-00.txt" target="_blank">SVG Tiny 1.2 specification</a>.</p>
+            <p>Complete standard details can be found in the <a href="https://datatracker.ietf.org/doc/id/draft-svg-tiny-ps-abrotman-00.txt" target="_blank" rel="noopener noreferrer">SVG Tiny 1.2 specification</a>.</p>
         </div>
     </main>
 
@@ -163,6 +164,6 @@
         <p>This tool is provided for free to help email marketers implement BIMI effectively.</p>
     </footer>
 
-    <script type="py" src="./main.py" config="./pyscript.toml" terminal></script>
+    <script type="module" src="./main.js"></script>
 </body>
 </html>
