@@ -1,0 +1,9 @@
+xmllint-wasm 5.2.0
+https://github.com/noppa/xmllint-wasm
+https://www.npmjs.com/package/xmllint-wasm/v/5.2.0
+
+Refresh vendor tree:
+  npm pack xmllint-wasm@5.2.0
+  tar -xzf xmllint-wasm-5.2.0.tgz
+  cp package/index-browser.mjs package/xmllint-browser.mjs package/xmllint.wasm package/COPYING vendor/xmllint-wasm/
+  update this VERSION file if the pin changes

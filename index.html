@@ -129,14 +129,16 @@
             <div class="input-group">
                 <h2>Upload SVG File for BIMI Validation</h2>
                 <p>Select your SVG file to check if it's BIMI-compliant:</p>
-                <input type="file" id="svg-file" accept=".svg,image/svg+xml" aria-label="Upload SVG file">
+                <label for="svg-file">Upload SVG file</label>
+                <input type="file" id="svg-file" accept=".svg,image/svg+xml">
                 <button id="validate-file-btn" type="button">Validate SVG File</button>
             </div>
 
             <div class="input-group">
                 <h2>Or Paste SVG Content</h2>
                 <p>Copy and paste your SVG code below:</p>
-                <textarea id="svg-content" placeholder="Paste your SVG content here..." aria-label="SVG content input"></textarea>
+                <label for="svg-content">SVG content</label>
+                <textarea id="svg-content" placeholder="Paste your SVG content here..."></textarea>
                 <button id="validate-content-btn" type="button">Validate SVG Content</button>
             </div>
 
